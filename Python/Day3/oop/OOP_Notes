@@ -1,0 +1,778 @@
+# ------------------------------------------
+# -- Object Oriented Programming => Intro --
+# ------------------------------------------
+# [1] Python Support Object Oriented Programming
+# [2] OOP Is A Paradigm Or Coding Style
+#     OOP Paradigm =>
+#       Means Structuring Program So The Methods[Functions] and Attributes[Data]
+#       Are Bundled Into Objects
+# [3] Methods => Act As Function That Use The Information Of The Object
+# [4] Python Is Multi-Paradigm Programming Language [Procedural, OOP, Functional]
+#     - Procedural => Structure App Like Recipe, Sets Of Steps To Make The Task
+#     - Functional => Built On the Concept of Mathematical Functions
+# [5] OOP Allow You To Organize Your Code and Make It Readable and Reusable
+# [6] Everything in Python is Object
+# [7] If Man Is Object
+#     - Attributes => Name, Age, Address, Phone Number, Info [Can Be Differnet]
+#     - Methods[Behaviors] => Walking, Eating, Singing, Playing
+# [8] If Car Is Object
+#     - Attributes => Model, Colour, Price
+#     - Methods[Behaviors] => Walking, Stopping
+# [9] Class Is The Template For Creating Objects [Object Constructor | Blueprint]
+#     - Class Car Can Create Many Cars Object
+# ---------------------------------------------
+
+
+
+# ----------------------------------------------------------
+# -- Object Oriented Programming => Class Syntax and Info --
+# ----------------------------------------------------------
+# [01] Class is The Blueprint Or Construtor Of The Object
+# [02] Class Instantiate Means Create Instance of A Class
+# [03] Instance => Object Created From Class And Have Their Methods and Attributes
+# [04] Class Defined With Keyword class
+# [05] Class Name Written With PascalCase [UpperCamelCase] Style
+# [06] Class May Contains Methods and Attributes
+# [07] When Creating Object Python Look For The Built In __init__ Method
+# [08] __init__ Method Called Every Time You Create Object From Class
+# [09] __init__ Method Is Initialize The Data For The Object
+# [10] Any Method With Two Underscore in The Start and End Called Dunder or Magic Method
+# [11] self Refer To The Current Instance Created From The Class And Must Be First Param
+# [12] self Can Be Named Anything
+# [13] In Python You Dont Need To Call new() Keyword To Create Object
+# -------------------------------------------------------------------
+
+# Syntax
+# class Name:
+#     Constructor => : A method that initializes the newly created instance.
+#     __init__ doesn't create the instance; it only initializes it with the required attributes AND setup configurations.
+#     you can create a class without __init__ but you will lose this function of attributes initialization "OOP features"
+#     
+#     def __init__(self, other_data)
+#         Body Of Function
+
+
+class Member:
+
+  def __init__(self):
+
+    print("A New Member Has Been Added")
+
+member_one = Member()           # prints the above message directly 
+member_two = Member()
+member_three = Member()
+
+print(member_one.__class__)       # return class name "Member"
+
+
+my_dictionary = {                   # represents how class would help u origianze data                  
+  'name': "Osama",
+  'age': 36,
+  'monthly_salary': 5000,
+  'yearly_salary': ''  # Something
+}
+
+
+
+# --------------------------------------------------------------------
+# -- Object Oriented Programming => Instance Attributes and Methods --
+# --------------------------------------------------------------------
+# Self: Point To Instance Created From Class
+# Instance Attributes: Instance Attributes Defined Inside The Constructor
+# -----------------------------------------------------------------------
+# Instance Methods: Take Self Parameter Which Point To Instance Created From Class
+# Instance Methods Can Have More Than One Parameter Like Any Function
+# Instance Methods Can Freely Access Attributes And Methods On The Same Object
+# Instance Methods Can Access The Class Itself
+# -----------------------------------------------------------
+
+class Member:
+  def __init__(self, first_name, middle_name, last_name):
+    self.fname = first_name                             # define class atrributes
+    self.mname = middle_name
+    self.lname = last_name
+
+member_one = Member("Osama", "Mohamed", "Elsayed")
+member_two = Member("Ahmed", "Ali", "Mahmoud")
+member_three = Member("Mona", "Ali", "Mahmoud")
+
+# get class all methods  and attributes
+print(dir(member_one))
+
+# Access instance attributes using objectName.attributeName
+print(member_one.fname, member_one.mname, member_one.lname)
+print(member_two.fname)
+print(member_three.fname)
+
+
+
+# --------------------------------------------------------------------
+# -- Object Oriented Programming => Instance Attributes and Methods --
+# --------------------------------------------------------------------
+# Self: Point To Instance Created From Class
+# Instance Attributes: Instance Attributes Defined Inside The Constructor
+# -----------------------------------------------------------------------
+# Instance Methods: Take Self Parameter Which Point To Instance Created From Class
+# Instance Methods Can Have More Than One Parameter Like Any Function
+# Instance Methods Can Freely Access Attributes And Methods On The Same Object
+# Instance Methods Can Access The Class Itself
+# -----------------------------------------------------------
+
+class Member:
+  def __init__(self, first_name, middle_name, last_name, gender):
+    self.fname = first_name
+    self.mname = middle_name
+    self.lname = last_name
+    self.gender = gender
+
+  def full_name(self):
+    return f"{self.fname} {self.mname} {self.lname}"
+
+  def name_with_title(self):
+    if self.gender == "Male":
+      return f"Hello Mr {self.fname}"
+    elif self.gender == "Female":
+      return f"Hello Miss {self.fname}"
+    else:
+      return f"Hello {self.fname}"
+
+  def get_all_info(self):
+    return f"{self.name_with_title()}, Your Full Name Is: {self.full_name()}"
+
+
+member_one = Member("Osama", "Mohamed", "Elsayed", "Male")
+member_two = Member("Ahmed", "Ali", "Mahmoud", "Male")
+member_three = Member("Mona", "Ali", "Mahmoud", "Female")
+
+# print(dir(member_one))
+
+# access instance method
+
+# print(member_one.fname, member_one.mname, member_one.lname)
+# print(member_two.fname)
+# print(member_three.fname)
+
+# print(member_two.full_name())
+# print(member_two.name_with_title())
+
+print(member_one.get_all_info())
+
+
+
+# -----------------------------------------------------
+# -- Object Oriented Programming => Class Attributes --
+# -----------------------------------------------------
+# Class Attributes: Attributes Defined Outside The Constructor
+# -----------------------------------------------------------
+
+class Member:
+
+  not_allowed_names = ["Hell", "Shit", "Baloot"]
+
+  users_num = 0
+
+  def __init__(self, first_name, middle_name, last_name, gender):
+
+    self.fname = first_name
+
+    self.mname = middle_name
+
+    self.lname = last_name
+
+    self.gender = gender
+    
+    # how to access class attribute
+    Member.users_num += 1  # Member.users_num = Member.users_num + 1
+
+  def full_name(self):
+
+    if self.fname in Member.not_allowed_names:
+
+      raise ValueError("Name Not Allowed")
+
+    else:
+
+      return f"{self.fname} {self.mname} {self.lname}"
+
+  def name_with_title(self):
+
+    if self.gender == "Male":
+
+      return f"Hello Mr {self.fname}"
+
+    elif self.gender == "Female":
+
+      return f"Hello Miss {self.fname}"
+
+    else:
+
+      return f"Hello {self.fname}"
+
+  def get_all_info(self):
+
+    return f"{self.name_with_title()}, Your Full Name Is: {self.full_name()}"
+
+  def delete_user(self):
+
+    Member.users_num -= 1  # Member.users_num = Member.users_num -1
+
+    return f"User {self.fname} Is Deleted."
+
+
+print(Member.users_num)
+
+member_one = Member("Osama", "Mohamed", "Elsayed", "Male")
+member_two = Member("Ahmed", "Ali", "Mahmoud", "Male")
+member_three = Member("Mona", "Ali", "Mahmoud", "Female")
+member_four = Member("Shit", "Hell", "Metal", "DD")
+
+print(Member.users_num)         # result '4'
+print(member_four.delete_user())
+print(Member.users_num)         # '3'
+
+
+print(dir(member_one))
+
+
+
+
+# -------------------------------------------------------------------
+# -- Object Oriented Programming => Class Methods & Static Methods --
+# -------------------------------------------------------------------
+# Class Methods:
+# - Marked With @classmethod Decorator To Flag It As Class Method
+# - It Take Cls Parameter Not Self To Point To The Class not The Instance
+# - It Doesn't Require Creation of a Class Instance
+# - Used When You Want To Do Something With The Class Itself
+# Static Methods:
+# - It Takes No Parameters
+# - Its Bound To The Class Not Instance
+# - Used When Doing Something Doesnt Have Access To Object Or Class But Related To Class
+# -----------------------------------------------------------
+
+class Member:
+
+  not_allowed_names = ["Hell", "Shit", "Baloot"]
+
+  users_num = 0
+
+  @classmethod
+  def show_users_count(cls):
+
+    print(f"We Have {cls.users_num} Users In Our System.")
+
+  @staticmethod
+  def say_hello():
+
+    print("Hello From Static Method")
+
+  def __init__(self, first_name, middle_name, last_name, gender):
+
+    self.fname = first_name
+
+    self.mname = middle_name
+
+    self.lname = last_name
+
+    self.gender = gender
+
+    Member.users_num += 1  # Member.users_num = Member.users_num + 1
+
+  def full_name(self):
+
+    if self.fname in Member.not_allowed_names:
+
+      raise ValueError("Name Not Allowed")
+
+    else:
+
+      return f"{self.fname} {self.mname} {self.lname}"
+
+  def name_with_title(self):
+
+    if self.gender == "Male":
+
+      return f"Hello Mr {self.fname}"
+
+    elif self.gender == "Female":
+
+      return f"Hello Miss {self.fname}"
+
+    else:
+
+      return f"Hello {self.fname}"
+
+  def get_all_info(self):
+
+    return f"{self.name_with_title()}, Your Full Name Is: {self.full_name()}"
+
+  def delete_user(self):
+
+    Member.users_num -= 1  # Member.users_num = Member.users_num -1
+
+    return f"User {self.fname} Is Deleted."
+
+print(Member.users_num)
+
+member_one = Member("Osama", "Mohamed", "Elsayed", "Male")
+member_two = Member("Ahmed", "Ali", "Mahmoud", "Male")
+member_three = Member("Mona", "Ali", "Mahmoud", "Female")
+member_four = Member("Shit", "Hell", "Metal", "DD")
+
+print(Member.users_num)
+print(member_four.delete_user())
+print(Member.users_num)
+
+print("#" * 50)
+
+Member.show_users_count()       # access class method
+
+print("#" * 50)
+
+print(member_one.full_name())
+print(Member.full_name(member_one))
+
+Member.say_hello()              # access static method
+
+
+
+# --------------------------------------------------
+# -- Object Oriented Programming => Magic Methods --
+# --------------------------------------------------
+# Everything in Python is An Object
+# __init__  Called Automatically When Instantiating Class
+# self.__class__ The class to which a class instance belongs
+# __str__   Gives a Human-Readable Output of the Object
+# __len__   Returns the Length of the Container
+#           Called When We Use the Built-in len() Function on the Object
+# ------------------------------------------------------
+
+class Skill:
+
+  def __init__(self):
+
+    self.skills = ["Html", "Css", "Js"]
+
+  def __str__(self):
+
+    return f"This is My Skills => {self.skills}"    # when you print the output of any class object, this return will automatically printed by default
+
+  def __len__(self):
+
+    return len(self.skills)     # to get length of the skills variable
+
+profile = Skill()
+print(profile)                  # printed object output will be the __str__ return by default.
+print(len(profile))
+
+
+profile.skills.append("PHP")        # you can operate in the object attributes with multiple methods
+profile.skills.append("MySQL")
+
+print(len(profile))
+
+print(profile.__class__)
+my_string = "Osama"
+print(type(my_string))
+print(my_string.__class__)
+print(dir(str))
+print(str.upper(my_string))
+
+
+
+
+# ------------------------------------------------
+# -- Object Oriented Programming => Inheritance --
+# -------------------------------------------------
+# -- a class inherites antoher class methods and attributes
+# ------------------------------------------------
+
+class Food:  # Base Class
+
+  def __init__(self, name, price):
+
+    self.name = name
+
+    self.price = price
+
+    print(f"{self.name} Is Created From Base Class And Price Is {self.price} ")
+
+  def eat(self):
+
+    print("Eat Method From Base Class ")
+
+#####################
+# How inheritence works:
+##################### 
+# General Rule: (the derived class uses the closer constructor to it, it may be his own __init__ or the parent __init__):
+# ------------
+"""
+  - First view: you don't have Constructor, "derived" class inherites "parent" constructor directly
+"""
+## Example
+class Banana(Food):    # Derived Class
+  pass
+
+## as u have no constructor, you are using the parent constructor attributes directly
+# b1 = Banana("mo1",10)
+  
+
+"""
+  - Second One: you have Constructor, but you don't refer to the Parent constructor 
+              - "derived" class uses his own __init__ constructor
+              - you still can use full parent methods, but
+              - you can NOT use any parent method that uses Parent attributes which are not called at the derived class __init__
+
+"""
+## Example
+class Mango(Food):   # Derived Class
+  def __init__(self, amount):
+    self.amount = amount
+
+  def calc_amount(self):
+    print(f"the amount is: {self.amount}")
+
+## Note the following: The default Print at the "parent" __init__ will not be called as the base constructor did not used.
+## as u have constructor, derived class will override the parent constrcutor
+m1 = Mango(10)
+
+# you call derived class method
+m1.calc_amount()   
+
+# Note the following: u stll can call the parent eat method as it does not depend on any parent attributes
+m1.eat()           
+
+
+"""
+  - third One: you have Constructor, but you expliciltly refernce the Parent constructor 
+              - "derived" class uses his own __init__ constructor && calls the Base class __init__ attributes
+              - NOW, you have full access to whole parent methods and attributes
+"""
+
+class Apple(Food):  # Derived Class
+
+  def __init__(self, name, price, amount):      # NOte: amount param is the custom parameter originaly defined in the current class __init__, two other params are required by the "super" method
+
+    # Food.__init__(self, name)                 # First method of how to call the Base class attributes
+    super().__init__(name, price)               # second method ..
+
+    self.amount = amount                        # a new custom attrinute exclusive for the Apple class and not inherited from the Base one
+
+    print(f"{self.name} Is Created From Derived Class And Price Is {self.price} And Amount Is {self.amount}")
+
+  def get_from_tree(self):
+
+      print("Get From Tree From Derived Class")
+
+# Note the following, you actually use the derived __init__ but you have called the parent attributes using the super method in order to have access to all parebt methods that uses these attributes
+# food_one = Food("Pizza")
+food_two = Apple("Pizza", 150, 500)             # Note: 
+food_two.eat()                                  # access base class method using derived class object
+food_two.get_from_tree()
+
+
+
+
+
+# ---------------------------------------------------------
+# -- Object Oriented Programming => Multiple Inheritance --
+# ---------------------------------------------------------
+
+class BaseOne:
+
+  def __init__(self):
+
+    print("Base One")
+
+  def func_one(self):
+
+    print("One")
+
+class BaseTwo:
+
+  def __init__(self):
+
+    print("Base Two")
+
+  def func_two(self):
+
+    print("Two")
+
+class Derived(BaseOne, BaseTwo):        # inherite from both classes
+
+  pass
+
+my_var = Derived()
+
+# print(Derived.mro())
+
+my_var.func_one()           # access first class method
+my_var.func_two()           # access second class method using the same derived class object
+
+
+
+class Base:
+
+  pass
+
+class DerivedOne(Base):
+
+  pass
+
+class DerivedTwo(DerivedOne):           # you have now the full access for both Base and DerivedOne classes
+
+  pass
+
+
+
+
+
+# -------------------------------------------------
+# -- Object Oriented Programming => Polymorphism --
+#--------------------------------------------------
+# -- poly means "many", morphism means "forms"
+# -- multiple methods with the same name but has different implementaions
+# -- a practical application of inheritance 
+# -------------------------------------------------
+
+n1 = 10
+n2 = 20
+
+print(n1 + n2)
+
+s1 = "Hello"
+s2 = "Python"
+
+print(s1 + " " + s2)
+
+print(len([1, 2, 3, 4, 5, 6]))
+print(len("Osama Elzero"))
+print(len({"Key_One": 1, "Key_Two": 2}))
+
+
+## Example 1:
+class Person:
+  def __init__(self, name, gender):
+    self.name = name
+    self.gender = gender
+
+    print(f"here is the auto printed object name:{self.name} and gender: {self.gender}")
+
+  def say_hello(self):
+    print(f"say Hello to our {self.gender}: {self.name}")
+
+class Employee(Person):
+  def __init__(self, name, gender, email):
+    super().__init__(name, gender)
+    self.email = email
+
+  def say_hello(self):
+    super().say_hello()          # "optionally" call the entire parent method 
+    print(f"Employee class say hello to {self.email}")   # implelemtation of say_hello method with different logic
+
+emp1 = Employee("mahmoud", "male", "mm@mail.com")
+emp1.say_hello()
+    
+
+## Example 2:
+# same info() method that gives u different results but inherits from another class method called info() too.
+class InfoGatherer:
+
+    def info(self):
+        raise NotImplementedError("Derived class must implement this method")
+
+
+class Human(InfoGatherer):
+
+    def info(self):
+        self.name = input("Enter the human's name: ")
+        self.age = input("Enter the human's age: ")
+        return f"Human Info -> Name: {self.name}, Age: {self.age}, Created At: {self.created_at}"
+
+
+class Car(InfoGatherer):
+    def info(self):
+        self.make = input("Enter the car's make: ")
+        self.model = input("Enter the car's model: ")
+        return f"Car Info -> Make: {self.make}, Model: {self.model}, Created At: {self.created_at}"
+
+my_instance = Human()
+
+# info() in the base class is inherited to multiple classes but with  different implementation justifications
+# you inherite the method from the base class with all its properties, however you need to implement the same method in ur class with the same name but with the required justifications
+my_instance.info()
+
+
+
+
+
+# --------------------------------------------------
+# -- Object Oriented Programming => Encapsulation --
+# --------------------------------------------------
+# Encapsulation
+# - Restrict Access To The Data Stored in Attirbutes and Methods
+# Public
+# - Every Attribute and Method That We Used So Far Is Public
+# - Attributes and Methods Can Be Modified and Run From Everywhere
+# - Inside Our Outside The Class
+# Protected
+# - Attributes and Methods Can Be Accessed From Within The Class And Sub Classes
+# - Attributes and Methods Prefixed With One Underscore _
+# Private
+# - Attributes and Methods Can Be Accessed From Within The Class Or Object Only
+# - Attributes Cannot Be Modified From Outside The Class
+# - Attributes and Methods Prefixed With Two Underscores __
+# ---------------------------------------------------------
+# - Attributes = Variables = Properties
+# -------------------------------------
+
+
+class Member:
+
+  def __init__(self, name):
+
+    self.name = name        # Public: accessed inside and outside the class "access means edits or calls"
+
+one = Member("Ahmed")
+print(one.name)
+one.name = "Sayed"          # you can edit on the "self.name" attribute normally as it public one
+print(one.name)
+
+
+
+class Member:
+
+  def __init__(self, name):
+
+    self._name = name       # Protected: accessed only inside the class and subclasses
+
+one = Member("Ahmed")
+print(one._name)
+one._name = "Sayed"         # it's coding wise to not access the _protected attributes outside the class, however u still can do so !!
+print(one._name)
+
+
+
+class Member:
+
+  def __init__(self, name):
+
+    self.__name = name      # Private: restrict access to the __name attribute just for the Encapsulated functions inside the class like say_hello()
+
+  def say_hello(self):      # because say_hello() is an encapsulated function, it can access the __name directly
+
+    return f"Hello {self.__name}"
+
+one = Member("Ahmed")
+# print(one.__name)         # you can not access private attribute directly using object, it's available to the class and to the encapsulated functions like say_hello()
+print(one.say_hello())
+print(one._Member__name)    # a workaround way to access the private attributes
+
+
+## NOte: it's coding wise and styling mechanism to not use private or protected attributes outside the class, but practically you still have access to them  
+
+
+
+# ------------------------------------------------------
+# -- Object Oriented Programming => Getters & Setters --
+# ------------------------------------------------------
+
+class Member:
+
+  def __init__(self, name):
+
+    self.__name = name  # Private
+
+
+  def get_name(self):  # Getter: a workaround to edit on the private attributes from inside the class without exposing them outside to objects
+
+    return self.__name
+
+  def set_name(self, new_name):  # Setter
+
+    self.__name = new_name
+
+one = Member("Ahmed")
+
+one._Member__name = "Sayed"     # edit directly "not a code styling wise"
+print(one._Member__name)
+
+print(one.get_name())
+one.set_name('Abbas')           # edit using setter method  "100% coding wise"
+print(one.get_name())
+
+
+
+# --------------------------------------------------------
+# -- Object Oriented Programming => @Property Decorator --
+# --------------------------------------------------------
+
+class Member:
+
+  def __init__(self, name, age):
+
+    self.name = name
+
+    self.age = age
+
+  @property                         # make this method to be accessed as a property "attribute" not a method because it just returns a specific static result so i don't need it to be method
+  def age_in_days(self):
+
+    return self.age * 365
+
+one = Member("Ahmed", 40)
+
+
+# print(one.age_in_days())      # it will give u an error because you call age_in_days() using braces () at end which refers to calling it as a method but it's now a property.
+print(one.age_in_days)          # correctly calling the property without "()"
+
+
+
+
+
+# ----------------------------------------------------------------
+# -- Object Oriented Programming => ABCs => Abstract Base Class --
+# ----------------------------------------------------------------
+# - Class Called Abstract Class If it Has One or More Abstract Methods
+# - abc module in Python Provides Infrastructure for Defining Custom Abstract Base Classes.
+# - By Adding @absttractmethod Decorator on The Methods
+# - ABCMeta Class Is a Metaclass Used For Defining Abstract Base Class
+# --------------------------------------------------------------------
+
+
+
+from abc import ABCMeta, abstractmethod     # modules to apply the abstraction in the following class
+
+class Programming(metaclass=ABCMeta):       # Programming class itself is useless, it does not make sense that i should ask if programming has_oop() or not, so made it as a "template" for other classes only which called "Abstraction"
+
+  @abstractmethod                           # you must mark the method as an abstraction method
+  def has_oop(self):
+
+    pass                                    # you just type pass as these methods is useless, you are not required to do anything here, you do the required logic in other classes
+
+  @abstractmethod
+  def has_name(self):
+
+    pass
+
+class Python(Programming):            # here u inherite the abstraction class and mention the abstraction methods as they are with ur added customization
+
+  def has_oop(self):
+
+    return "Yes"
+
+class Pascal(Programming):
+
+  def has_oop(self):
+
+    return "No"
+
+  def has_name(self):
+
+    return "Pascal"
+
+one = Python()                # it will give u an error if u try to print the object, as you must add the has_name() method inside the Python class as you have already marked it abstracted method
+one = Pascal()                # this will work with u as you did the template well
+
+print(one.has_oop())
+print(one.has_name())
